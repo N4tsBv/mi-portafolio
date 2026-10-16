@@ -27,8 +27,8 @@ const jobs = [
     detailDates: "Jun 2020 – Sep 2021",
     mark: "1 año 4 m",
     markType: "duration",
-    icon: "fa-solid fa-wand-magic-sparkles",
-    tone: "card-icon--soft",
+    icon: "fa-solid fa-bullhorn",
+    tone: "card-icon--muted",
     duties: [
       "Diseño de interfaces web y landings para diversos proyectos digitales, mejorando la estructura visual y la usabilidad de las plataformas.",
       "Desarrollo de identidades visuales completas desde la conceptualización hasta la entrega final.",
@@ -62,7 +62,7 @@ const jobs = [
     detailDates: "Jul 2018 – Jan 2019",
     mark: "Prácticas",
     markType: "duration",
-    icon: "fa-solid fa-graduation-cap",
+    icon: "fa-solid fa-bullhorn",
     tone: "card-icon--muted",
     duties: [
       "Ejecución de diseño de piezas gráficas para campañas digitales.",
@@ -90,6 +90,7 @@ const jobs = [
               aria-selected={index === 0 ? "true" : "false"}
               aria-controls={`panel-${job.id}`}
             >
+              <span class="job-node" aria-hidden="true"></span>
               <span class:list={["job-tab-icon", job.tone]} aria-hidden="true">
                 <i class={job.icon} />
               </span>
