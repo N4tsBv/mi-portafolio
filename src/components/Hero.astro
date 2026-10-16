@@ -1,3 +1,7 @@
+---
+import { publicUrl } from "../lib/publicUrl";
+---
+
 <section id="inicio" class="hero scroll-mt-12">
   <div class="hero-grid">
     <div class="hero-copy">
@@ -24,7 +28,7 @@
     <div class="hero-photo">
       <div class="hero-frame">
         <img
-          src="/profile.jpg"
+          src={publicUrl("/profile.jpg")}
           alt="Nataly Bernal, web designer y UX/UI designer"
           class="hero-image"
         />

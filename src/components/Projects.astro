@@ -1,4 +1,6 @@
 ---
+import { publicUrl } from "../lib/publicUrl";
+
 const filters = [
   { id: "all", label: "Todos" },
   { id: "uiux", label: "UI/UX" },
@@ -10,7 +12,7 @@ const projects = [
   {
     title: "Binkz App — UX/UI",
     badge: "UI/UX & Web Design",
-    image: "/proyectos/binkz.jpg",
+    image: publicUrl("/proyectos/binkz.jpg"),
     href: "https://www.behance.net/gallery/254703017/Binkz-App-UXUI-Case-Study?platform=direct",
     categories: "uiux web",
     text: "Diseño de interfaz y caso de estudio UX/UI para la plataforma de gestión de impresión 3D. Desarrollo de arquitectura de información, flujos de usuario, wireframing y prototipado.",
@@ -18,7 +20,7 @@ const projects = [
   {
     title: "Housing Campaign — Creative Direction",
     badge: "Graphic & Web Design",
-    image: "/proyectos/housing.jpg",
+    image: publicUrl("/proyectos/housing.jpg"),
     href: "https://www.behance.net/gallery/245494793/Housing-Campaign-Interactive-Portfolio?platform=direct",
     categories: "graphic web",
     text: "Concepto creativo, definición de la línea gráfica, producción multicanal de piezas visuales y landing page interactiva.",
@@ -26,7 +28,7 @@ const projects = [
   {
     title: "FAQ Landing Page — Web Design & Layout",
     badge: "UX/UI",
-    image: "/proyectos/faq.jpg",
+    image: publicUrl("/proyectos/faq.jpg"),
     href: "https://www.behance.net/gallery/243408183/FAQ-Landing-Page?platform=direct",
     categories: "uiux web",
     text: "Diseño y maquetación de landing page optimizada para sección de preguntas frecuentes (FAQ).",
@@ -34,7 +36,7 @@ const projects = [
   {
     title: "Diseño Gráfico y Web",
     badge: "Graphic Design",
-    image: "/proyectos/grafico.jpg",
+    image: publicUrl("/proyectos/grafico.jpg"),
     href: "https://www.behance.net/gallery/206982023/Diseno-grafico-y-web-inmobiliarias",
     categories: "graphic web",
     text: "Desarrollo integral de piezas gráficas, edición de video y maquetación web para campañas digitales enfocadas en proyectos del sector inmobiliario.",
