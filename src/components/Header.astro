@@ -1,6 +1,8 @@
 ---
 import { publicUrl } from "../lib/publicUrl";
 
+const cvUrl = "https://drive.google.com/file/d/1tmBBbRSZeDqo6G_UqCIpxM_gDvfVtZ53/view?usp=sharing";
+
 const navItems = [
   { href: "#inicio", label: "Inicio" },
   { href: "#sobre-mi", label: "Sobre mí" },
@@ -38,7 +40,7 @@ const navItems = [
     </nav>
 
     <div class="header-actions">
-      <a href={publicUrl("/cv.pdf")} class="btn-cv btn-cv--header" download>
+      <a href={cvUrl} class="btn-cv btn-cv--header" target="_blank" rel="noreferrer">
         <i class="fa-solid fa-download" aria-hidden="true"></i>
         Descargar CV
       </a>
@@ -73,7 +75,7 @@ const navItems = [
         ))
       }
       <div class="mobile-actions">
-        <a href={publicUrl("/cv.pdf")} class="btn-cv btn-cv--menu" download>
+        <a href={cvUrl} class="btn-cv btn-cv--menu" target="_blank" rel="noreferrer">
           <i class="fa-solid fa-download" aria-hidden="true"></i>
           Descargar CV
         </a>
