@@ -1,0 +1,50 @@
+---
+const skills = [
+  {
+    title: "Diseño Web & UX/UI",
+    icon: "fa-solid fa-display",
+    tone: "card-icon--rose",
+    text: "Diseño de interfaces de usuario y maquetación web responsiva. Prototipado interactivo en Figma y desarrollo front-end usando HTML5, CSS3 y Tailwind CSS.",
+    tags: ["HTML", "CSS", "Tailwind CSS", "Figma", "Layout Composition"],
+  },
+  {
+    title: "Diseño Gráfico y Marca",
+    icon: "fa-solid fa-palette",
+    tone: "card-icon--soft",
+    text: "Desarrollo de identidad visual y sistemas de diseño. Creación de recursos gráficos para medios digitales e impresos, guías de estilo y piezas publicitarias.",
+    tags: ["Illustrator", "Photoshop", "Branding", "Sistemas Visuales"],
+  },
+  {
+    title: "Edic. Vídeo & Animación",
+    icon: "fa-solid fa-clapperboard",
+    tone: "card-icon--mint",
+    text: "Edición de video y producción de motion graphics para campañas digitales, activos web y contenido promocional utilizando After Effects y Premiere Pro.",
+    tags: ["After Effects", "Premiere Pro", "Motion Graphics"],
+  },
+];
+---
+
+<section id="habilidades" class="skills scroll-mt-32">
+  <div class="skills-inner">
+    <h2 class="section-title">Habilidades &amp; Herramientas</h2>
+
+    <div class="skills-grid">
+      {
+        skills.map((skill) => (
+          <article class="skill-card">
+            <span class:list={["card-icon", skill.tone]} aria-hidden="true">
+              <i class={skill.icon} />
+            </span>
+            <h3 class="skill-title">{skill.title}</h3>
+            <p class="skill-copy">{skill.text}</p>
+            <ul class="skill-tags">
+              {skill.tags.map((tag) => (
+                <li class="skill-pill">{tag}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

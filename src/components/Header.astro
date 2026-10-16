@@ -1,0 +1,126 @@
+---
+const navItems = [
+  { href: "#inicio", label: "Inicio" },
+  { href: "#sobre-mi", label: "Sobre mí" },
+  { href: "#habilidades", label: "Habilidades" },
+  { href: "#experiencia", label: "Experiencia" },
+  { href: "#proyectos", label: "Proyectos" },
+];
+---
+
+<header class="site-header">
+  <div class="header-bar">
+    <a href="#inicio" class="brand" aria-label="Nataly Bernal — Inicio">
+      <img src="/logo.jpg" alt="N4TS" class="brand-logo" />
+      <span class="brand-name">Nataly Bernal</span>
+      <span class="brand-dot" aria-hidden="true"></span>
+    </a>
+
+    <nav class="header-nav" aria-label="Principal">
+      <ul class="header-nav-list">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                data-nav-link
+                data-section={item.href}
+                class:list={["nav-link", item.href === "#inicio" && "is-active"]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="/cv.pdf" class="btn-cv btn-cv--header" download>
+        <i class="fa-solid fa-download" aria-hidden="true"></i>
+        Descargar CV
+      </a>
+      <a href="#contacto" class="btn-mail btn-mail--header" aria-label="Enviar correo">
+        <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+      </a>
+      <button
+        type="button"
+        id="menu-toggle"
+        class="btn-mail btn-mail--toggle"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label="Abrir menú"
+      >
+        <i class="fa-solid fa-bars" data-menu-icon aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="mobile-nav" aria-label="Móvil">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            data-nav-link
+            data-section={item.href}
+            class:list={["nav-link", "nav-link--mobile", item.href === "#inicio" && "is-active"]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <div class="mobile-actions">
+        <a href="/cv.pdf" class="btn-cv btn-cv--menu" download>
+          <i class="fa-solid fa-download" aria-hidden="true"></i>
+          Descargar CV
+        </a>
+        <a href="#contacto" class="btn-mail btn-mail--menu" aria-label="Enviar correo">
+          <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector("header");
+  if (header) {
+    const toggle = header.querySelector("#menu-toggle");
+    const menu = header.querySelector("#mobile-menu");
+    const icon = header.querySelector("[data-menu-icon]");
+    const links = header.querySelectorAll("[data-nav-link]");
+
+    const setOpen = (open: boolean) => {
+      if (!toggle || !menu || !icon) return;
+      menu.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+      icon.classList.toggle("fa-bars", !open);
+      icon.classList.toggle("fa-xmark", open);
+      document.body.classList.toggle("menu-open", open);
+    };
+
+    const setActive = (hash: string) => {
+      const current = hash || "#inicio";
+      links.forEach((link) => {
+        link.classList.toggle("is-active", link.getAttribute("data-section") === current);
+      });
+    };
+
+    toggle?.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") !== "true";
+      setOpen(open);
+    });
+
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        setActive(link.getAttribute("data-section") ?? "#inicio");
+        setOpen(false);
+      });
+    });
+
+    setActive(window.location.hash || "#inicio");
+    window.addEventListener("hashchange", () => setActive(window.location.hash));
+  }
+</script>

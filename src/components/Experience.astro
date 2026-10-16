@@ -1,0 +1,171 @@
+---
+const jobs = [
+  {
+    id: "leo-burnett",
+    company: "Leo Burnett",
+    companyLabel: "Agencia Leo Burnett",
+    role: "Diseñadora Web",
+    dates: "Sep 2021 – Actualmente",
+    detailDates: "Sep 2021 – Presente",
+    mark: "Actual",
+    markType: "badge",
+    icon: "fa-solid fa-rocket",
+    tone: "card-icon--rose",
+    duties: [
+      "Diseño y gestión de sistemas de identidad visual y piezas para medios digitales.",
+      "Desarrollo de interfaces web y sitios para campañas digitales, enfocándome en la estructura y la maquetación responsiva.",
+      "Edición y producción de contenido audiovisual y motion graphics para plataformas digitales empleando After Effects y Premiere Pro.",
+    ],
+    tools: ["Figma", "Tailwind", "VS Code", "Suite Adobe"],
+  },
+  {
+    id: "creative-nerd",
+    company: "Creative Nerd Agency",
+    companyLabel: "Creative Nerd Agency",
+    role: "Diseñadora Gráfica y Web",
+    dates: "Jun 2020 – Sep 2021",
+    detailDates: "Jun 2020 – Sep 2021",
+    mark: "1 año 4 m",
+    markType: "duration",
+    icon: "fa-solid fa-wand-magic-sparkles",
+    tone: "card-icon--soft",
+    duties: [
+      "Diseño de interfaces web y landings para diversos proyectos digitales, mejorando la estructura visual y la usabilidad de las plataformas.",
+      "Desarrollo de identidades visuales completas desde la conceptualización hasta la entrega final.",
+      "Optimización del flujo de trabajo en la creación de material gráfico para medios digitales e impresos.",
+    ],
+    tools: ["Figma", "HTML / CSS", "Suite Adobe"],
+  },
+  {
+    id: "age",
+    company: "AGE Publicidad",
+    companyLabel: "Agencia AGE",
+    role: "Diseñadora Gráfica",
+    dates: "Sep 2019 – Mar 2020",
+    detailDates: "Sep 2019 – Mar 2020",
+    mark: "7 meses",
+    markType: "duration",
+    icon: "fa-solid fa-bullhorn",
+    tone: "card-icon--muted",
+    duties: [
+      "Ejecución de diseño de piezas gráficas para campañas digitales e impresas, contribuyendo al desarrollo de conceptos creativos y redacción de copys.",
+      "Producir contenido audiovisual y motion graphics, apoyando directamente en la creación y mantenimiento de la identidad visual de la agencia.",
+    ],
+    tools: ["Illustrator", "Photoshop", "After Effects"],
+  },
+  {
+    id: "brm",
+    company: "BRM S.A.",
+    companyLabel: "Agencia BRM S.A.",
+    role: "Diseñadora Web Jr",
+    dates: "Jul 2018 – Jan 2019",
+    detailDates: "Jul 2018 – Jan 2019",
+    mark: "Prácticas",
+    markType: "duration",
+    icon: "fa-solid fa-graduation-cap",
+    tone: "card-icon--muted",
+    duties: [
+      "Ejecución de diseño de piezas gráficas para campañas digitales.",
+      "Asistencia en maquetación de piezas de email marketing y landing pages promocionales básicas.",
+    ],
+    tools: ["HTML / CSS", "Suite Adobe"],
+  },
+];
+---
+
+<section id="experiencia" class="experience scroll-mt-32">
+  <div class="experience-inner">
+    <h2 class="section-title">Experiencia Laboral</h2>
+
+    <div class="experience-panel" data-experience>
+      <div class="job-list" role="tablist" aria-label="Experiencia laboral">
+        {
+          jobs.map((job, index) => (
+            <button
+              type="button"
+              class:list={["job-tab", index === 0 && "is-active"]}
+              role="tab"
+              id={`tab-${job.id}`}
+              data-job-tab={job.id}
+              aria-selected={index === 0 ? "true" : "false"}
+              aria-controls={`panel-${job.id}`}
+            >
+              <span class:list={["job-tab-icon", job.tone]} aria-hidden="true">
+                <i class={job.icon} />
+              </span>
+              <span class="job-tab-body">
+                <span class="job-tab-top">
+                  <span class="job-tab-company">{job.company}</span>
+                  {job.markType === "badge" ? (
+                    <span class="job-badge">{job.mark}</span>
+                  ) : (
+                    <span class="job-duration">{job.mark}</span>
+                  )}
+                </span>
+                <span class="job-tab-role">{job.role}</span>
+                <span class="job-tab-dates">{job.dates}</span>
+              </span>
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="job-detail">
+        {
+          jobs.map((job, index) => (
+            <article
+              class:list={["job-panel", index === 0 && "is-active"]}
+              id={`panel-${job.id}`}
+              role="tabpanel"
+              data-job-panel={job.id}
+              aria-labelledby={`tab-${job.id}`}
+            >
+              <div class="job-head">
+                <p class="job-when">{job.detailDates}</p>
+                {job.markType === "badge" && <span class="job-badge">{job.mark}</span>}
+              </div>
+              <h3 class="job-role">{job.role}</h3>
+              <p class="job-company">{job.companyLabel}</p>
+              <ul class="job-duties">
+                {job.duties.map((duty) => (
+                  <li>{duty}</li>
+                ))}
+              </ul>
+              <ul class="job-tools">
+                {job.tools.map((tool) => (
+                  <li class="skill-pill">{tool}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector("[data-experience]");
+  if (root) {
+    const tabs = root.querySelectorAll("[data-job-tab]");
+    const panels = root.querySelectorAll("[data-job-panel]");
+
+    const activate = (id: string) => {
+      tabs.forEach((tab) => {
+        const selected = tab.getAttribute("data-job-tab") === id;
+        tab.classList.toggle("is-active", selected);
+        tab.setAttribute("aria-selected", String(selected));
+      });
+      panels.forEach((panel) => {
+        panel.classList.toggle("is-active", panel.getAttribute("data-job-panel") === id);
+      });
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const id = tab.getAttribute("data-job-tab");
+        if (id) activate(id);
+      });
+    });
+  }
+</script>

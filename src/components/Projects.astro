@@ -1,0 +1,239 @@
+---
+const filters = [
+  { id: "all", label: "Todos" },
+  { id: "uiux", label: "UI/UX" },
+  { id: "web", label: "Web Design" },
+  { id: "graphic", label: "Graphic Design" },
+];
+
+const projects = [
+  {
+    title: "Binkz App — UX/UI",
+    badge: "UI/UX & Web Design",
+    image: "/proyectos/binkz.jpg",
+    href: "https://www.behance.net/gallery/254703017/Binkz-App-UXUI-Case-Study?platform=direct",
+    categories: "uiux web",
+    text: "Diseño de interfaz y caso de estudio UX/UI para la plataforma de gestión de impresión 3D. Desarrollo de arquitectura de información, flujos de usuario, wireframing y prototipado.",
+  },
+  {
+    title: "Housing Campaign — Creative Direction",
+    badge: "Graphic & Web Design",
+    image: "/proyectos/housing.jpg",
+    href: "https://www.behance.net/gallery/245494793/Housing-Campaign-Interactive-Portfolio?platform=direct",
+    categories: "graphic web",
+    text: "Concepto creativo, definición de la línea gráfica, producción multicanal de piezas visuales y landing page interactiva.",
+  },
+  {
+    title: "FAQ Landing Page — Web Design & Layout",
+    badge: "UX/UI",
+    image: "/proyectos/faq.jpg",
+    href: "https://www.behance.net/gallery/243408183/FAQ-Landing-Page?platform=direct",
+    categories: "uiux web",
+    text: "Diseño y maquetación de landing page optimizada para sección de preguntas frecuentes (FAQ).",
+  },
+  {
+    title: "Diseño Gráfico y Web",
+    badge: "Graphic Design",
+    image: "/proyectos/grafico.jpg",
+    href: "https://www.behance.net/gallery/206982023/Diseno-grafico-y-web-inmobiliarias",
+    categories: "graphic web",
+    text: "Desarrollo integral de piezas gráficas, edición de video y maquetación web para campañas digitales enfocadas en proyectos del sector inmobiliario.",
+  },
+];
+---
+
+<section id="proyectos" class="projects scroll-mt-24">
+  <div class="projects-inner" data-projects>
+    <div class="projects-head">
+      <div>
+        <p class="projects-kicker">Portafolio</p>
+        <h2 class="section-title">Proyectos</h2>
+      </div>
+
+      <div class="project-filters" role="tablist" aria-label="Filtrar proyectos">
+        {
+          filters.map((filter, index) => (
+            <button
+              type="button"
+              class:list={["project-filter", index === 0 && "is-active"]}
+              data-filter={filter.id}
+              aria-pressed={index === 0 ? "true" : "false"}
+            >
+              {filter.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="projects-viewport">
+      <button type="button" class="project-arrow project-arrow--prev" data-project-prev aria-label="Anterior">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="project-arrow project-arrow--next" data-project-next aria-label="Siguiente">
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+      <div class="projects-track" data-project-track>
+        {
+          projects.map((project) => (
+            <article class="project-card" data-project-card data-categories={project.categories}>
+              <div class="project-media">
+                <img class="project-image" src={project.image} alt={project.title} />
+                <span class="project-badge">{project.badge}</span>
+              </div>
+              <div class="project-body">
+                <h3 class="project-title">{project.title}</h3>
+                <p class="project-copy">{project.text}</p>
+                <a class="project-link" href={project.href} target="_blank" rel="noreferrer">
+                  Ver Proyecto
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article>
+          ))
+        }
+
+        <article class="project-card project-card--more" data-project-card data-categories="all">
+          <div class="project-more">
+            <h3 class="project-title">Explorar más proyectos</h3>
+            <p class="project-copy">
+              Ver más casos de estudio, piezas de diseño gráfico, proyectos web y contenido
+              audiovisual en mi portafolio completo de Behance.
+            </p>
+            <a class="project-link" href="https://www.behance.net/n4ts" target="_blank" rel="noreferrer">
+              Ver Behance
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </article>
+        <div class="projects-spacer" data-project-spacer aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="project-dots" data-project-dots></div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector("[data-projects]");
+  if (root) {
+    const track = root.querySelector("[data-project-track]");
+    const spacer = root.querySelector("[data-project-spacer]");
+    const dots = root.querySelector("[data-project-dots]");
+    const prev = root.querySelector("[data-project-prev]");
+    const next = root.querySelector("[data-project-next]");
+    const filters = root.querySelectorAll("[data-filter]");
+    const cards = [...root.querySelectorAll("[data-project-card]")];
+    let page = 0;
+
+    const perPage = () => {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 768) return 2;
+      return 1;
+    };
+
+    const visibleCards = () => cards.filter((card) => !card.classList.contains("is-hidden"));
+
+    const step = () => {
+      const card = visibleCards()[0];
+      if (!card || !track) return 0;
+      const gap = parseFloat(getComputedStyle(track).columnGap || "0");
+      return card.getBoundingClientRect().width + gap;
+    };
+
+    const pageCount = () => Math.max(1, Math.ceil(visibleCards().length / perPage()));
+
+    const updateSpacer = () => {
+      if (!track || !spacer) return;
+      const cardsInView = visibleCards();
+      const card = cardsInView[0];
+      if (!card) {
+        spacer.style.display = "none";
+        return;
+      }
+      const gap = parseFloat(getComputedStyle(track).columnGap || "0");
+      const cardWidth = card.getBoundingClientRect().width;
+      const lastStart = Math.max(0, (pageCount() - 1) * perPage());
+      const needed = lastStart * (cardWidth + gap);
+      const natural =
+        cardsInView.length * cardWidth +
+        Math.max(0, cardsInView.length - 1) * gap -
+        track.clientWidth;
+      const extra = Math.max(0, Math.ceil(needed - natural));
+      spacer.style.display = extra > 1 ? "block" : "none";
+      spacer.style.width = `${extra}px`;
+    };
+
+    const renderDots = () => {
+      if (!dots) return;
+      updateSpacer();
+      const count = pageCount();
+      page = Math.min(page, count - 1);
+      if (prev instanceof HTMLButtonElement) prev.disabled = page <= 0;
+      if (next instanceof HTMLButtonElement) next.disabled = page >= count - 1;
+      dots.innerHTML = "";
+      for (let index = 0; index < count; index += 1) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `project-dot${index === page ? " is-active" : ""}`;
+        button.setAttribute("aria-label", `Ir a la página ${index + 1}`);
+        button.addEventListener("click", () => {
+          page = index;
+          track?.scrollTo({ left: page * perPage() * step(), behavior: "smooth" });
+          renderDots();
+        });
+        dots.append(button);
+      }
+    };
+
+    const applyFilter = (id: string) => {
+      cards.forEach((card) => {
+        const categories = (card.getAttribute("data-categories") || "").split(" ");
+        const show = id === "all" || categories.includes(id);
+        card.classList.toggle("is-hidden", !show);
+      });
+      filters.forEach((filter) => {
+        const selected = filter.getAttribute("data-filter") === id;
+        filter.classList.toggle("is-active", selected);
+        filter.setAttribute("aria-pressed", String(selected));
+      });
+      page = 0;
+      track?.scrollTo({ left: 0 });
+      renderDots();
+    };
+
+    const goTo = (index: number) => {
+      page = Math.max(0, Math.min(pageCount() - 1, index));
+      track?.scrollTo({ left: page * perPage() * step(), behavior: "smooth" });
+      renderDots();
+    };
+
+    prev?.addEventListener("click", () => goTo(page - 1));
+    next?.addEventListener("click", () => goTo(page + 1));
+
+    filters.forEach((filter) => {
+      filter.addEventListener("click", () => {
+        const id = filter.getAttribute("data-filter");
+        if (id) applyFilter(id);
+      });
+    });
+
+    track?.addEventListener("scroll", () => {
+      const amount = perPage() * step();
+      if (!amount) return;
+      const nextPage = Math.round((track.scrollLeft || 0) / amount);
+      if (nextPage !== page) {
+        page = nextPage;
+        renderDots();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      page = 0;
+      track?.scrollTo({ left: 0 });
+      renderDots();
+    });
+
+    renderDots();
+  }
+</script>

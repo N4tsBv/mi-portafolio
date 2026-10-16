@@ -1,0 +1,58 @@
+---
+const details = [
+  {
+    label: "Correo",
+    value: "natalybernal444@gmail.com",
+    href: "mailto:natalybernal444@gmail.com",
+    icon: "fa-regular fa-envelope",
+    tone: "contact-icon--rose",
+  },
+  {
+    label: "Ubicación",
+    value: "Bogotá, Colombia",
+    icon: "fa-solid fa-location-dot",
+    tone: "contact-icon--muted",
+  },
+  {
+    label: "Disponibilidad",
+    value: "Abierta a nuevas oportunidades & proyectos",
+    icon: "fa-regular fa-clock",
+    tone: "contact-icon--green",
+  },
+];
+---
+
+<section id="contacto" class="contact">
+  <div class="contact-inner">
+    <div class="contact-card">
+      <div class="contact-intro">
+        <span class="card-icon card-icon--rose" aria-hidden="true">
+          <i class="fa-regular fa-envelope"></i>
+        </span>
+        <p class="contact-kicker">Iniciemos una conversación</p>
+      </div>
+
+      <ul class="contact-panel">
+        {
+          details.map((item) => (
+            <li class="contact-item">
+              <span class:list={["contact-icon", item.tone]} aria-hidden="true">
+                <i class={item.icon} />
+              </span>
+              <span class="contact-copy">
+                <span class="contact-label">{item.label}</span>
+                {item.href ? (
+                  <a class="contact-value" href={item.href}>
+                    {item.value}
+                  </a>
+                ) : (
+                  <span class="contact-value">{item.value}</span>
+                )}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

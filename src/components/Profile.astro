@@ -1,0 +1,114 @@
+---
+const tools = ["Figma", ,"IA", "Suite Adobe", "Visual Studio Code", "Tailwind CSS"];
+
+const studies = [
+  {
+    title: "UX/UI Design Course",
+    place: "Coderhouse",
+    year: "2026",
+    detail: "Especialización en User Research, Arquitectura de Información, Diseño de Interfaces (UI), Prototipado y Testeos de Usabilidad.",
+    dot: "timeline-dot--accent",
+  },
+  {
+    title: "Pregrado Profesional Comunicación Visual",
+    place: "Corporación Universitaria Minuto de Dios (Uniminuto)",
+    year: "2019",
+    dot: "timeline-dot--ink",
+  },
+  {
+    title: "Diplomado en Publicidad y Creatividad",
+    place: "Corporación Universitaria Minuto de Dios (Uniminuto)",
+    year: "2016",
+    dot: "timeline-dot--muted",
+  },
+];
+
+const certificates = [
+  {
+    name: "Google Garage",
+    detail: "Digital Marketing Fundamentals",
+    icon: "fa-solid fa-location-dot",
+    tone: "cert-icon--accent",
+  },
+  {
+    name: "BeProOnline",
+    detail: "Photoshop Expert Masterclass",
+    icon: "fa-solid fa-gear",
+    tone: "cert-icon--green",
+  },
+];
+---
+
+<section id="sobre-mi" class="profile scroll-mt-12">
+  <div class="profile-inner">
+    <h2 class="section-title">Perfil Profesional</h2>
+
+    <div class="profile-grid">
+      <article class="profile-card">
+        <header class="card-heading">
+          <span class="card-icon card-icon--rose" aria-hidden="true">
+            <i class="fa-solid fa-user"></i>
+          </span>
+          <h3 class="card-title">Sobre mí</h3>
+        </header>
+
+        <p class="profile-copy">
+          Diseñadora Web y UI/UX con más de 5 años de experiencia en la creación de piezas
+          digitales y sitios web, con enfoque en diseño UI usando herramientas como Figma y
+          Adobe XD, estructuración web y maquetación con HTML, CSS y Tailwind CSS, integrando
+          herramientas de IA para un flujo de trabajo moderno y eficiente. Con trayectoria en
+          equipos multidisciplinarios y adaptación de diseños a entornos reales de producción.
+          <span class="profile-note">Nivel de inglés intermedio - B2.</span>
+        </p>
+
+        <div class="tools">
+          <p class="eyebrow">Herramientas</p>
+          <ul class="tools-list">
+            {tools.map((tool) => <li class="tool-pill">{tool}</li>)}
+          </ul>
+        </div>
+      </article>
+
+      <article class="profile-card">
+        <header class="card-heading">
+          <span class="card-icon card-icon--soft" aria-hidden="true">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </span>
+          <h3 class="card-title">Educación</h3>
+        </header>
+
+        <ol class="timeline">
+          {
+            studies.map((study) => (
+              <li class="timeline-item">
+                <span class:list={["timeline-dot", study.dot]} aria-hidden="true" />
+                <h4 class="timeline-title">{study.title}</h4>
+                <p class="timeline-meta">
+                  {study.place} <span aria-hidden="true">•</span> {study.year}
+                </p>
+                {study.detail && <p class="timeline-detail">{study.detail}</p>}
+              </li>
+            ))
+          }
+        </ol>
+
+        <div class="certs">
+          <p class="eyebrow">Certificaciones complementarias</p>
+          <ul class="certs-list">
+            {
+              certificates.map((certificate) => (
+                <li class="cert">
+                  <i class:list={[certificate.icon, "cert-icon", certificate.tone]} aria-hidden="true" />
+                  <span>
+                    <span class="cert-name">{certificate.name}</span>
+                    <span class="cert-detail">{certificate.detail}</span>
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

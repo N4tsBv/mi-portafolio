@@ -1,0 +1,29 @@
+---
+const links = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/nataly-bernal-4b6748117" },
+  { label: "Behance", href: "https://www.behance.net/n4ts" },
+  { label: "GitHub", href: "https://github.com/N4tsBv?tab=repositories" },
+  { label: "Email", href: "mailto:natalybernal444@gmail.com" },
+];
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-name">Nataly Bernal</p>
+      <p class="footer-role">Web &amp; UX/UI Designer</p>
+    </div>
+
+    <nav class="footer-links" aria-label="Redes y contacto">
+      {
+        links.map((link) => (
+          <a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noreferrer" : undefined}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <p class="footer-copy">© 2026 Nataly Bernal. Todos los derechos reservados.</p>
+  </div>
+</footer>
