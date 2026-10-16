@@ -459,7 +459,7 @@ body.menu-open {
   z-index: 0;
   width: 2px;
   transform: translateX(-50%);
-  background: #151c27;
+  background: #d9d9d9;
 }
 
 .job-tab:first-child::before {
@@ -478,12 +478,13 @@ body.menu-open {
   width: 0.72rem;
   height: 0.72rem;
   transform: translate(-50%, -50%);
-  border: 2px solid #151c27;
+  border: 2px solid #ababab;
   border-radius: 999px;
   background: #f3f4f8;
 }
 
 .job-tab.is-active .job-node {
+border: 2px solid #151c27;
   background: #151c27;
   box-shadow: 0 0 0 4px rgba(21, 28, 39, 0.16);
 }
