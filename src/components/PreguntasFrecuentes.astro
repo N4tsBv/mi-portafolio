@@ -1,0 +1,94 @@
+---
+const faqs = [
+  {
+    question: "¿Qué tipo de proyectos realizo?",
+    answer:
+      "Diseño de interfaces, experiencia de usuario, branding digital y maquetación web para marcas, startups y negocios que necesitan comunicar mejor su propuesta en línea.",
+  },
+  {
+    question: "¿Trabajas también en desarrollo frontend?",
+    answer:
+      "Sí. Combino diseño visual y UX con implementación en interfaces web para que el concepto no quede solo en mockups, sino que pueda entregarse de forma funcional y consistente.",
+  },
+  {
+    question: "¿Cómo es el proceso de trabajo?",
+    answer:
+      "Partimos con una conversación inicial para entender objetivos, público y contexto. Luego definimos estructura, visual, contenidos y entregables, con revisiones clave para ajustar la propuesta antes de cerrar.",
+  },
+  {
+    question: "¿Puedo encargar un proyecto desde cero?",
+    answer:
+      "Claro. Puedo apoyar desde la etapa estratégica, el diseño de la propuesta visual y la estructura de la experiencia hasta la entrega final en formatos listos para web o presentación.",
+  },
+  {
+    question: "¿Los diseños son responsive?",
+    answer:
+      "Sí. Cada propuesta considera adaptabilidad a distintos tamaños de pantalla para que la experiencia se vea cuidada tanto en desktop, tablet y móvil.",
+  },
+];
+---
+
+<section id="preguntas-frecuentes" class="faq scroll-mt-24">
+  <div class="faq-inner">
+    <div class="faq-head">
+      <div>
+        <p class="projects-kicker">Preguntas frecuentes</p>
+        <h2 class="section-title">¿Qué necesitas saber?</h2>
+      </div>
+    </div>
+
+    <div class="faq-list" data-faq-list>
+      {
+        faqs.map((faq, index) => (
+          <article class:list={["faq-item", index === 0 && "is-open"]} data-faq-item>
+            <button
+              class="faq-question"
+              type="button"
+              aria-expanded={index === 0 ? "true" : "false"}
+            >
+              <span>{faq.question}</span>
+              <i class:list={["fa-solid", index === 0 ? "fa-minus" : "fa-plus"]} aria-hidden="true"></i>
+            </button>
+            <div class="faq-answer" hidden={index !== 0}>
+              <p>{faq.answer}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const faqItems = document.querySelectorAll("[data-faq-item]");
+
+  faqItems.forEach((item) => {
+    const button = item.querySelector(".faq-question");
+    const answer = item.querySelector(".faq-answer");
+    const icon = button?.querySelector("i");
+
+    button?.addEventListener("click", () => {
+      const willOpen = !item.classList.contains("is-open");
+
+      faqItems.forEach((faqItem) => {
+        const faqButton = faqItem.querySelector(".faq-question");
+        const faqAnswer = faqItem.querySelector(".faq-answer");
+        const faqIcon = faqButton?.querySelector("i");
+
+        faqItem.classList.remove("is-open");
+        faqButton?.setAttribute("aria-expanded", "false");
+        faqAnswer?.setAttribute("hidden", "hidden");
+        faqIcon?.classList.remove("fa-minus");
+        faqIcon?.classList.add("fa-plus");
+      });
+
+      if (willOpen) {
+        item.classList.add("is-open");
+        button.setAttribute("aria-expanded", "true");
+        answer?.removeAttribute("hidden");
+        icon?.classList.remove("fa-plus");
+        icon?.classList.add("fa-minus");
+      }
+    });
+  });
+</script>
